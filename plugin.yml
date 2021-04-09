@@ -1,1 +1,19 @@
-aaaa
+name: Guilde
+main: fr.legarri.guilde.Main
+authors: [LeGarri, StreeTixX]
+version: 1.0
+api-version: 1.16
+
+commands:
+  guilde:
+    description: permet d'utiliser la commande /guilde
+    aliases: [gl]
+  guildeadmin:
+    description: permet d'utiliser la commande /guildeadmin
+    aliases: [gla, gladmin, gla]
+    
+    
+permissions:
+  guilde.admin:
+    description: permet d'utiliser la commande admin /guildeadmin
+    default: op
