@@ -17,6 +17,10 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				showHelpMessage(sender);
 			}
 			
+			if(args.length >= 2 && args[0].equalsIgnoreCase("create")) {
+				
+			}
+			
 			return true;
 		}
 		

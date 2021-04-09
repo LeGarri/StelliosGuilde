@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.stellios.guilde.commands.Guilde;
 import fr.stellios.guilde.manager.ConfigManager;
+import fr.stellios.guilde.manager.DataManager;
 
 public class Main extends JavaPlugin {
 
@@ -15,6 +16,7 @@ public class Main extends JavaPlugin {
 	private FileConfiguration dataConfig, configConfig;
 	
 	private ConfigManager configManager;
+	private DataManager dataManager;
 	
 	@Override
 	public void onEnable() {
@@ -25,11 +27,16 @@ public class Main extends JavaPlugin {
 		getCommand("guilde").setTabCompleter(new Guilde());
 		
 		configManager = new ConfigManager(this);
+		dataManager = new DataManager(this);
 	}
 	
 	
 	public ConfigManager getConfigManager() {
 		return this.configManager;
+	}
+	
+	public DataManager getDataManager() {
+		return this.dataManager;
 	}
 	
 	
