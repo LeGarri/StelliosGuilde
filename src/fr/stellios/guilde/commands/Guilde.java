@@ -31,6 +31,12 @@ public class Guilde implements CommandExecutor, TabCompleter {
             //commande /guilde ou /gl
             if(args.length == 1) {
                 tab.add("help");
+                tab.add("create");
+                tab.add("invite");
+                tab.add("join");
+                tab.add("list");
+                tab.add("desc");
+                tab.add("rename");
 
                 return tab;
             }
