@@ -73,6 +73,7 @@ public class Menu {
 		inv.setItem(25, Items.getBlueGlass());
 		inv.setItem(26, Items.getBlueGlass());
 		
+		
 		return inv;
 	}
 	
