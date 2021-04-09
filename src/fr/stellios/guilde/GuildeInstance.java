@@ -20,4 +20,6 @@ public class GuildeInstance {
 	
 	public List<OfflinePlayer> getPlayers() { return this.players; }
 	
+	
+	
 }

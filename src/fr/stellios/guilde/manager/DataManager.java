@@ -23,7 +23,7 @@ public class DataManager {
 		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			guildes.add(new GuildeInstance(s.replaceAll("$*!*", " "),
-					getGuildePlayers(getGuilde(s))));
+					getGuildePlayers(s)));
 		}
 		
 		return guildes;
@@ -38,6 +38,17 @@ public class DataManager {
 		}
 		
 		return players;
+	}
+	
+	public GuildeInstance getGuildeByPlayer(OfflinePlayer player) {
+		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
+			if(getGuildePlayers(s).contains(player)){
+				return new GuildeInstance(s.replaceAll("$*!*", " "),
+						getGuildePlayers(s));
+			}
+		}
+		
+		return null;
 	}
 	
 	private String getGuilde(String guildeName) {
