@@ -1,11 +1,13 @@
-package fr.stellios.guilde;
+package fr.stellios.guilde.manager;
+
+import fr.stellios.guilde.Main;
 
 public class ConfigManager {
 
 	private Main main;
 	
 
-	public String PERMISSION;
+	public final String PERMISSION;
 	
 	
 	public ConfigManager(Main main) {

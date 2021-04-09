@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.stellios.guilde.commands.Guilde;
+import fr.stellios.guilde.manager.ConfigManager;
 
 public class Main extends JavaPlugin {
 
