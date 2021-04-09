@@ -8,7 +8,7 @@ public class Guilde implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("relique")) {
+		if(cmd.getName().equalsIgnoreCase("guilde")) {
 			if(args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("help"))) { // /guilde ou /guilde help
 				showHelpMessage(sender);
 			}
@@ -20,7 +20,12 @@ public class Guilde implements CommandExecutor {
 	}
 	
 	private void showHelpMessage(CommandSender sender) {
-		
+		sender.sendMessage("§6/guilde create §e<Nom de la Guilde> §6- §eCréer votre guilde");
+		sender.sendMessage("§6/guilde invite §e<Nom du Joueur> §6- §eInviter un joueur");
+		sender.sendMessage("§6/guilde join §e<Nom de la Guilde> §6- §eRejoind une guilde");
+		sender.sendMessage("§6/guilde list §6- §eAffiche la liste des guildes existante");
+		sender.sendMessage("§6/guilde desc §e<Description> §6- §eEditer la description de la guilde");
+		sender.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChnager le nom de la guilde");
 	}
 
 }
