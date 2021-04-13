@@ -10,11 +10,28 @@
 #                                                  #
 ####################################################
 #
-# Author: LeGarri
+# Author: LeGarri & StreeTixX
 #
 # This is the config file for Guilde
 #
 #####################################################
 
 message:
+  prefix: "&7[&bStellios&7] &f"
   permission: "&cVous n'avez pas la permission"
+  already-in-guilde: "&cVous êtes déjà dans une guilde"
+  guilde-already-exist: "&cCette guilde existe déjà"
+  guilde-created: "&eVous venez de créer la guilde &6%guilde%"
+  player-not-online: "&cLe joueur %player% n'est pas connecté"
+  dont-have-guilde: "&cVous devez avoir une guilde pour faire cela"
+  already-have-guilde: "&cCe joueur a déjà une guilde"
+  already-invited: "&cCe joueur à déjà été inviter à rejoindre une guilde"
+  invite-player: "&eVous avez invité %player% à rejoindre votre guilde"
+  invite-expired: "&cL'invitation à rejoindre cette guilde a expiré"
+  invite-received: "&eVous avez été inviter à rejoindre la guilde %guilde%"
+  dont-invited: "&cVous n'avez pas été inviter à rejoindre une guilde"
+  dont-invite-guilde: "&cVous n'avez pas été inviter à rejoindre cette guilde"
+  join-guilde: "&eVous avez rejoint la guilde %guilde%"
+  deny-guilde: "&cVous avez refuser l'invitation"
+  join-guilde-broadcast: "&6%player% &ea rejoint la guilde"
+  deny-guilde-broadcast: "&6%player% &ea refuser de rejoindre la guilde"

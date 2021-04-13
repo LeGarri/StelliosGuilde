@@ -1,25 +1,174 @@
 package fr.stellios.guilde.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import fr.stellios.guilde.Main;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class Guilde implements CommandExecutor, TabCompleter {
 
+	private Main main;
+	
+	private HashMap<Player, String> invites = new HashMap<Player, String>();
+	
+	public Guilde(Main main) {
+		this.main = main;
+	}
+	
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("guilde")) {
+		if(cmd.getName().equalsIgnoreCase("guilde") && sender instanceof Player) {
+			Player player = (Player) sender;
+			
 			if(args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("help"))) { // /guilde ou /guilde help
-				showHelpMessage(sender);
+				showHelpMessage(player);
 			}
 			
 			if(args.length >= 2 && args[0].equalsIgnoreCase("create")) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) != null) {
+					player.sendMessage(main.getConfigManager().ALREADY_IN_GUILDE);
+					
+					return true;
+				}
 				
+				String guildeName = "";
+				for(int i = 0; i < args.length; i++) {
+					if(i > 0) guildeName += args[i] + " ";
+				}
+				
+				if(main.getDataManager().getGuildeByName(guildeName) != null) {
+					player.sendMessage(main.getConfigManager().GUILD_ALREADY_EXIST);
+					
+					return true;
+				}
+				
+				main.getDataManager().createGuilde(guildeName, Bukkit.getOfflinePlayer(player.getUniqueId())).saveGuilde();
+				
+				player.sendMessage(main.getConfigManager().GUILD_CREATED.replaceAll("%guilde%", guildeName));
+				
+				return true;
 			}
+			
+			if(args.length == 2 && args[0].equalsIgnoreCase("invite")) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
+					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				if(Bukkit.getPlayer(args[1]) == null) {
+					player.sendMessage(main.getConfigManager().PLAYER_NOT_ONLINE);
+					
+					return true;
+				}
+				
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId())) != null) {
+					player.sendMessage(main.getConfigManager().ALREADY_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				if(invites.containsKey(Bukkit.getPlayer(args[1]))) {
+					player.sendMessage(main.getConfigManager().ALREADY_INVITED);
+					
+					return true;
+				}
+				
+				player.sendMessage(main.getConfigManager().INVITE_PLAYER.replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()));
+				
+				invites.put(Bukkit.getPlayer(args[1]), main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getGuildeName());
+				Bukkit.getPlayer(args[1]).sendMessage(main.getConfigManager().INVITE_RECEIVED.replaceAll("%guilde%", main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getGuildeName()));
+				
+				TextComponent yes = new TextComponent("§a[Accepter]");
+				yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/guilde join " + main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getGuildeName()));
+				TextComponent no = new TextComponent("§c[Refuser]");
+				no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/guilde deny " + main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getGuildeName()));
+				
+				Bukkit.getPlayer(args[1]).spigot().sendMessage(new ComponentBuilder(yes).append(" ").append(no).create());
+				
+				new BukkitRunnable() {
+					Player invited = Bukkit.getPlayer(args[1]);
+					
+					@Override
+					public void run() {
+						if(invites.containsKey(invited)) {
+							invites.remove(invited);
+							invited.sendMessage("invite expired");
+						}
+					}
+				}.runTaskLater(main, 1200);
+			}
+			
+			if(args.length >= 2 && args[0].equalsIgnoreCase("join")) {
+				if(!invites.containsKey(player)) {
+					player.sendMessage(main.getConfigManager().DONT_INVITE);
+					
+					return true;
+				}
+				
+				String guildeName = "";
+				for(int i = 0; i < args.length; i++) {
+					if(i > 0) guildeName += args[i] + " ";
+				}
+				
+				if(!invites.get(player).equalsIgnoreCase(guildeName)) {
+					player.sendMessage(main.getConfigManager().DONT_INVITE_GUILDE);
+					
+					return true;
+				}
+				
+				main.getDataManager().getGuildeByName(guildeName).addPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
+				
+				main.getDataManager().getGuildeByName(guildeName).sendMessage(main.getConfigManager().JOIN_GUILDE_BROADCAST.replaceAll("%player%", player.getName()), Arrays.asList(player));
+				
+				player.sendMessage(main.getConfigManager().JOIN_GUILDE);
+				
+				return true;
+			}
+			
+			if(args.length >= 2 && args[0].equalsIgnoreCase("deny")) {
+				if(!invites.containsKey(player)) {
+					player.sendMessage(main.getConfigManager().DONT_INVITE);
+					
+					return true;
+				}
+				
+				String guildeName = "";
+				for(int i = 0; i < args.length; i++) {
+					if(i > 0) guildeName += args[i] + " ";
+				}
+				
+				if(!invites.get(player).equalsIgnoreCase(guildeName)) {
+					player.sendMessage(main.getConfigManager().DONT_INVITE_GUILDE);
+					
+					return true;
+				}
+				
+				invites.remove(player);
+				
+				player.sendMessage(main.getConfigManager().DENY_GUILDE);
+				
+				main.getDataManager().getGuildeByName(guildeName).sendMessage(main.getConfigManager().DENY_GUILDE_BROADCAST.replaceAll("%player%", player.getName()));
+				
+				return true;
+			}
+			
+			
+			showHelpMessage(player);
 			
 			return true;
 		}
@@ -38,6 +187,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
                 tab.add("create");
                 tab.add("invite");
                 tab.add("join");
+                tab.add("deny");
                 tab.add("list");
                 tab.add("desc");
                 tab.add("rename");
@@ -56,7 +206,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
 		sender.sendMessage("§6/guilde join §e<Nom de la Guilde> §6- §eRejoind une guilde");
 		sender.sendMessage("§6/guilde list §6- §eAffiche la liste des guildes existante");
 		sender.sendMessage("§6/guilde desc §e<Description> §6- §eEditer la description de la guilde");
-		sender.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChnager le nom de la guilde");
+		sender.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChanger le nom de la guilde");
 	}
 
 }

@@ -23,8 +23,8 @@ public class Main extends JavaPlugin {
 		loadData();
 		loadConfig();
 		
-		getCommand("guilde").setExecutor(new Guilde());
-		getCommand("guilde").setTabCompleter(new Guilde());
+		getCommand("guilde").setExecutor(new Guilde(this));
+		getCommand("guilde").setTabCompleter(new Guilde(this));
 		
 		configManager = new ConfigManager(this);
 		dataManager = new DataManager(this);

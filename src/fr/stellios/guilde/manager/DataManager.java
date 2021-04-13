@@ -1,6 +1,7 @@
 package fr.stellios.guilde.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,16 +19,6 @@ public class DataManager {
 		this.main = main;
 	}
 	
-	public List<GuildeInstance> getAllGuilde(){
-		List<GuildeInstance> guildes = new ArrayList<GuildeInstance>();
-		
-		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
-			guildes.add(new GuildeInstance(s.replaceAll("$*!*", " "),
-					getGuildePlayers(s)));
-		}
-		
-		return guildes;
-	}
 	
 	public List<OfflinePlayer> getGuildePlayers(String guildeName) {
 		List<String> playersUUID = main.getData().getStringList(getGuilde(guildeName) + ".players");
@@ -40,10 +31,36 @@ public class DataManager {
 		return players;
 	}
 	
+	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
+		return new GuildeInstance(main, guildeName, Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())));
+	}
+	
+	public List<GuildeInstance> getAllGuilde(){
+		List<GuildeInstance> guildes = new ArrayList<GuildeInstance>();
+		
+		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
+			guildes.add(new GuildeInstance(main, s.replaceAll("$*!*", " "),
+					getGuildePlayers(s)));
+		}
+		
+		return guildes;
+	}
+	
 	public GuildeInstance getGuildeByPlayer(OfflinePlayer player) {
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			if(getGuildePlayers(s).contains(player)){
-				return new GuildeInstance(s.replaceAll("$*!*", " "),
+				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
+						getGuildePlayers(s));
+			}
+		}
+		
+		return null;
+	}
+	
+	public GuildeInstance getGuildeByName(String name) {
+		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
+			if(s.replaceAll(" ", "$*!*").equalsIgnoreCase(name)) {
+				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
 						getGuildePlayers(s));
 			}
 		}
