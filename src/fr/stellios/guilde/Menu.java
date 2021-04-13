@@ -43,4 +43,37 @@ public class Menu {
 		return inv;
 	}
 	
+	public static Inventory getGuildeIcon() {
+		Inventory inv = Bukkit.createInventory(null, 3*9, "§6Changement icon de la Guilde");
+		
+		inv.setItem(0, Items.getBlueGlass());
+		inv.setItem(1, Items.getBlueGlass());
+		inv.setItem(2, Items.getLightBlueGlass());
+		inv.setItem(3, Items.getLightBlueGlass());
+		inv.setItem(4, Items.getLightBlueGlass());
+		inv.setItem(5, Items.getLightBlueGlass());
+		inv.setItem(6, Items.getLightBlueGlass());
+		inv.setItem(7, Items.getLightBlueGlass());
+		inv.setItem(8, Items.getBlueGlass());
+		inv.setItem(9, Items.getBlueGlass());
+		inv.setItem(10, Items.getBlueGlass());
+		inv.setItem(11, Items.getLightBlueGlass());
+		inv.setItem(12, Items.getLightBlueGlass());
+		inv.setItem(13, Items.getLightBlueGlass());
+		inv.setItem(15, Items.getLightBlueGlass());
+		inv.setItem(16, Items.getLightBlueGlass());
+		inv.setItem(17, Items.getLightBlueGlass());
+		inv.setItem(18, Items.getBlueGlass());
+		inv.setItem(19, Items.getBlueGlass());
+		inv.setItem(20, Items.getLightBlueGlass());
+		inv.setItem(21, Items.getLightBlueGlass());
+		inv.setItem(22, Items.getLightBlueGlass());
+		inv.setItem(23, Items.getLightBlueGlass());
+		inv.setItem(24, Items.getLightBlueGlass());
+		inv.setItem(25, Items.getBlueGlass());
+		inv.setItem(26, Items.getBlueGlass());
+		
+		return inv;
+	}
+	
 }
