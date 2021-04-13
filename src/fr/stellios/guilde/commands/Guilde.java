@@ -181,7 +181,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
         if(cmd.getName().equalsIgnoreCase("guilde")) {
             List<String> tab = new ArrayList<String>();
 
-            //commande /guilde 
+            //commande /guilde
             if(args.length == 1) {
                 tab.add("help");
                 tab.add("create");
