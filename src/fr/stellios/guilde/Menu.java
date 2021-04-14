@@ -1,12 +1,18 @@
 package fr.stellios.guilde;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Menu {
 
-	public static Inventory getGuildeList() {
-		Inventory inv = Bukkit.createInventory(null, 6*9, "§6Liste des Guildes");
+	public static Inventory getGuildeList(Main main, int page) {
+		Inventory inv = Bukkit.createInventory(null, 6*9, "§6Liste des Guildes - page " + page);
 		
 		inv.setItem(0, Items.getBlueGlass());
 		inv.setItem(1, Items.getBlueGlass());
@@ -29,11 +35,35 @@ public class Menu {
 		inv.setItem(46, Items.getBlueGlass());
 		inv.setItem(47, Items.getLightBlueGlass());
 		inv.setItem(48, Items.getLightBlueGlass());
-		inv.setItem(49, Items.getPaperPrevious());
+		if(page > 0) inv.setItem(49, Items.getPaperPrevious());
 		inv.setItem(50, Items.getLightBlueGlass());
 		inv.setItem(51, Items.getPaperNext());
 		inv.setItem(52, Items.getBlueGlass());
 		inv.setItem(53, Items.getBlueGlass());
+		
+		int i = 28 * page;
+		
+		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
+			if(i < 28 * (page + 1)) {
+				GuildeInstance gi = main.getDataManager().getGuildeByName(s);
+				
+				ItemStack item = new ItemStack(gi.getIcon());
+				ItemMeta itemMeta = item.getItemMeta();
+				itemMeta.setDisplayName("§6" + gi.getGuildeName());
+				List<String> lore = new ArrayList<String>();
+				lore.add("");
+				lore.add("§eMembres:");
+				for(OfflinePlayer op : gi.getPlayers()) {
+					lore.add("§7- §e" + op.getName());
+				}
+				itemMeta.setLore(lore);
+				item.setItemMeta(itemMeta);
+				
+				inv.setItem(i, item);
+			}
+			
+			i++;
+		}
 		
 		return inv;
 	}
@@ -44,7 +74,7 @@ public class Menu {
 	}
 	
 	public static Inventory getGuildeIcon() {
-		Inventory inv = Bukkit.createInventory(null, 3*9, "§6Changement icon de la Guilde");
+		Inventory inv = Bukkit.createInventory(null, 3*9, "§6Icone de la Guilde");
 		
 		inv.setItem(0, Items.getBlueGlass());
 		inv.setItem(1, Items.getBlueGlass());

@@ -26,6 +26,12 @@ public class ConfigManager {
 	public final String DENY_GUILDE;
 	public final String JOIN_GUILDE_BROADCAST;
 	public final String DENY_GUILDE_BROADCAST;
+	public final String GUILDE_LEAVE;
+	public final String GUILDE_LEAVE_BROADCAST;
+	public final String GUILDE_RENAME;
+	public final String GUILDE_RENAME_BROADCAST;
+	public final String DESC_CHANGED;
+	public final String DESC_CHANGED_BROADCAST;
 	
 	
 	public ConfigManager(Main main) {
@@ -50,6 +56,45 @@ public class ConfigManager {
         this.DENY_GUILDE = PREFIX + this.main.getData().getString("message.deny-guilde").replaceAll("&", "§");
         this.JOIN_GUILDE_BROADCAST = PREFIX + this.main.getData().getString("message.join-guilde-broadcast").replaceAll("&", "§");
         this.DENY_GUILDE_BROADCAST = PREFIX + this.main.getData().getString("message.deny-guilde-broadcast").replaceAll("&", "§");
+        this.GUILDE_LEAVE = PREFIX + this.main.getData().getString("message.guilde-leave").replaceAll("&", "§");
+        this.GUILDE_LEAVE_BROADCAST = PREFIX + this.main.getData().getString("message.guilde-leave-broadcast").replaceAll("&", "§");
+        this.GUILDE_RENAME = PREFIX + this.main.getData().getString("message.guilde-rename").replaceAll("&", "§");
+        this.GUILDE_RENAME_BROADCAST = PREFIX + this.main.getData().getString("message.guilde-rename-broadcast").replaceAll("&", "§");
+        this.DESC_CHANGED =  PREFIX + this.main.getData().getString("message.desc-changed").replaceAll("&", "§");
+        this.DESC_CHANGED_BROADCAST =  PREFIX + this.main.getData().getString("message.desc-changed-broadcast").replaceAll("&", "§");
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

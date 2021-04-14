@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import fr.stellios.guilde.GuildeInstance;
@@ -31,8 +32,17 @@ public class DataManager {
 		return players;
 	}
 	
+	public Material getGuildeIcon(String guildeName) {
+		return Material.getMaterial(main.getData().getString(getGuilde(guildeName) + ".icon"));
+	}
+	
+	public String getGuildeDesc(String guildeName) {
+		return main.getData().getString(getGuilde(guildeName) + ".desc");
+	}
+	
+	
 	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
-		return new GuildeInstance(main, guildeName, Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())));
+		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT);
 	}
 	
 	public List<GuildeInstance> getAllGuilde(){
@@ -40,7 +50,9 @@ public class DataManager {
 		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			guildes.add(new GuildeInstance(main, s.replaceAll("$*!*", " "),
-					getGuildePlayers(s)));
+					getGuildeDesc(s),
+					getGuildePlayers(s),
+					getGuildeIcon(s)));
 		}
 		
 		return guildes;
@@ -50,7 +62,9 @@ public class DataManager {
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			if(getGuildePlayers(s).contains(player)){
 				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
-						getGuildePlayers(s));
+						getGuildeDesc(s),
+						getGuildePlayers(s),
+						getGuildeIcon(s));
 			}
 		}
 		
@@ -61,7 +75,9 @@ public class DataManager {
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			if(s.replaceAll(" ", "$*!*").equalsIgnoreCase(name)) {
 				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
-						getGuildePlayers(s));
+						getGuildeDesc(s),
+						getGuildePlayers(s),
+						getGuildeIcon(s));
 			}
 		}
 		

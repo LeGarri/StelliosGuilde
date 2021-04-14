@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.stellios.guilde.commands.Guilde;
+import fr.stellios.guilde.listener.MenuListener;
 import fr.stellios.guilde.manager.ConfigManager;
 import fr.stellios.guilde.manager.DataManager;
 
@@ -26,6 +27,8 @@ public class Main extends JavaPlugin {
 		getCommand("guilde").setExecutor(new Guilde(this));
 		getCommand("guilde").setTabCompleter(new Guilde(this));
 		
+		getServer().getPluginManager().registerEvents(new MenuListener(this), this);
+		
 		configManager = new ConfigManager(this);
 		dataManager = new DataManager(this);
 	}
@@ -41,7 +44,7 @@ public class Main extends JavaPlugin {
 	
 	
 	
-	private void loadData() {
+	public void loadData() {
 		dataFile = new File(getDataFolder(), "data.yml");
 		if(!dataFile.exists()) {
 			saveResource("data.yml", false);
@@ -74,7 +77,7 @@ public class Main extends JavaPlugin {
 	
 	
 	
-	private void loadConfig() {
+	public void loadConfig() {
 		configFile = new File(getDataFolder(), "config.yml");
 		if(!configFile.exists()) {
 			saveResource("config.yml", false);
