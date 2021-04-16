@@ -34,7 +34,7 @@ public class Items {
 	public static ItemStack getPaperNext() {
 		ItemStack item = new ItemStack(Material.PAPER);
 		ItemMeta itemMeta = item.getItemMeta();
-		itemMeta.setDisplayName("Page Suivante");
+		itemMeta.setDisplayName("§aPage Suivante");
 		item.setItemMeta(itemMeta);
 		
 		return item;
@@ -43,7 +43,7 @@ public class Items {
 	public static ItemStack getPaperPrevious() {
 		ItemStack item = new ItemStack(Material.PAPER);
 		ItemMeta itemMeta = item.getItemMeta();
-		itemMeta.setDisplayName("Page Précedente");
+		itemMeta.setDisplayName("§cPage Précédente");
 		item.setItemMeta(itemMeta);
 		
 		return item;

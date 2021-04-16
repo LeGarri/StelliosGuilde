@@ -40,31 +40,39 @@ public class DataManager {
 		return main.getData().getString(getGuilde(guildeName) + ".desc");
 	}
 	
+	public OfflinePlayer getGuildeOwner(String guildeName) {
+		return Bukkit.getOfflinePlayer(UUID.fromString(main.getData().getString(getGuilde(guildeName) + ".owner")));
+	}
+	
 	
 	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
-		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT);
+		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player);
 	}
 	
 	public List<GuildeInstance> getAllGuilde(){
 		List<GuildeInstance> guildes = new ArrayList<GuildeInstance>();
 		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
-			guildes.add(new GuildeInstance(main, s.replaceAll("$*!*", " "),
+			guildes.add(new GuildeInstance(main, s.replaceAll("bbb149", " "),
 					getGuildeDesc(s),
 					getGuildePlayers(s),
-					getGuildeIcon(s)));
+					getGuildeIcon(s),
+					getGuildeOwner(s)));
 		}
 		
 		return guildes;
 	}
 	
 	public GuildeInstance getGuildeByPlayer(OfflinePlayer player) {
+		if(main.getData().getConfigurationSection("guildes") == null || main.getData().getConfigurationSection("guildes").getKeys(false).isEmpty()) return null;
+		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
 			if(getGuildePlayers(s).contains(player)){
-				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
+				return new GuildeInstance(main, s.replaceAll("bbb149", " "),
 						getGuildeDesc(s),
 						getGuildePlayers(s),
-						getGuildeIcon(s));
+						getGuildeIcon(s),
+						getGuildeOwner(s));
 			}
 		}
 		
@@ -72,12 +80,15 @@ public class DataManager {
 	}
 	
 	public GuildeInstance getGuildeByName(String name) {
+		if(main.getData().getConfigurationSection("guildes") == null || main.getData().getConfigurationSection("guildes").getKeys(false).isEmpty()) return null;
+		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
-			if(s.replaceAll(" ", "$*!*").equalsIgnoreCase(name)) {
-				return new GuildeInstance(main, s.replaceAll("$*!*", " "),
+			if(s.replaceAll(" ", "bbb149").equalsIgnoreCase(name)) {
+				return new GuildeInstance(main, s.replaceAll("bbb149", " "),
 						getGuildeDesc(s),
 						getGuildePlayers(s),
-						getGuildeIcon(s));
+						getGuildeIcon(s),
+						getGuildeOwner(s));
 			}
 		}
 		

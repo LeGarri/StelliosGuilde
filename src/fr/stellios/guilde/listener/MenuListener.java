@@ -1,5 +1,6 @@
 package fr.stellios.guilde.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,6 +42,67 @@ public class MenuListener implements Listener {
 				player.openInventory(Menu.getGuildeList(main, page - 1));
 			}
 		}
+		
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Menu Guilde")) {
+			e.setCancelled(true);
+			
+			Player player = (Player) e.getWhoClicked();
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§6Icone de la guilde")) {
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
+					
+					return;
+				}
+				
+				player.closeInventory();
+				player.openInventory(Menu.getGuildeMenu(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+			}
+		}
+		
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Icone de la Guilde")) {
+			e.setCancelled(true);
+		}
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

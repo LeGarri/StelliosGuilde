@@ -41,4 +41,8 @@ message:
   guilde-rename-broadcast: "&6%player% &ea changé le nom de la guilde pour &6%guilde%"
   desc-changed: "&eLa description de la guilde a bien été changer"
   desc-changed-broadcast: "&6%player% &evient de changer la description de la guilde"
+  not-owner: "&cVous n'etes pas le propriétaire de la guilde"
+  new-owner-broadcast: "&6%player% &eest le nouveau propriétaire de la guilde"
+  owner-already-owner: "&cVous êtes déjà le propriétaire de cette guilde"
+  player-not-in-guilde: "&6%player% &cne fait pas partie de votre guilde"
   

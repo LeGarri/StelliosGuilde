@@ -36,8 +36,22 @@ public class Guilde implements CommandExecutor, TabCompleter {
 		if(cmd.getName().equalsIgnoreCase("guilde") && sender instanceof Player) {
 			Player player = (Player) sender;
 			
-			if(args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("help"))) { // /guilde ou /guilde help
+			if(args.length == 0) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
+					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				player.openInventory(Menu.getGuildeMenu(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+				
+				return true;
+			}
+			
+			if(args.length == 1 && args[0].equalsIgnoreCase("help")) { // /guilde ou /guilde help
 				showHelpMessage(player);
+				
+				return true;
 			}
 			
 			if(args.length >= 2 && args[0].equalsIgnoreCase("create")) {
@@ -73,7 +87,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				}
 				
 				if(Bukkit.getPlayer(args[1]) == null) {
-					player.sendMessage(main.getConfigManager().PLAYER_NOT_ONLINE);
+					player.sendMessage(main.getConfigManager().PLAYER_NOT_ONLINE.replaceAll("%player%", args[1]));
 					
 					return true;
 				}
@@ -169,7 +183,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
-			if(args.length == 2 && args[0].equalsIgnoreCase("leave")) {
+			if(args.length == 1 && args[0].equalsIgnoreCase("leave")) {
 				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
 					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
 					
@@ -181,15 +195,25 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				gi.sendMessage(main.getConfigManager().GUILDE_LEAVE_BROADCAST.replaceAll("%player%", player.getName()));
 				
 				player.sendMessage(main.getConfigManager().GUILDE_LEAVE);
+				
+				return true;
 			}
 			
-			if(args.length == 2 && args[0].equalsIgnoreCase("list")) {
+			if(args.length == 1 && args[0].equalsIgnoreCase("list")) {
 				player.openInventory(Menu.getGuildeList(main, 0));
+				
+				return true;
 			}
 			
 			if(args.length >= 2 && args[0].equalsIgnoreCase("rename")) {
 				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
 					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
 					
 					return true;
 				}
@@ -221,6 +245,12 @@ public class Guilde implements CommandExecutor, TabCompleter {
 					return true;
 				}
 				
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
+					
+					return true;
+				}
+				
 				String desc = "";
 				for(int i = 0; i < args.length; i++) {
 					if(i > 0) desc += args[i] + " ";
@@ -235,13 +265,49 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
+			if(args.length == 2 && args[0].equalsIgnoreCase("setowner")) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
+					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
+					
+					return true;
+				}
+				
+				if(Bukkit.getPlayer(args[1]) == null) {
+					player.sendMessage(main.getConfigManager().PLAYER_NOT_ONLINE.replaceAll("%player%", args[1]));
+					
+					return true;
+				}
+				
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().OWNER_ALREADY_OWNER);
+					
+					return true;
+				}
+				
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getPlayers().contains(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().PLAYER_NOT_IN_GUILDE.replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()));
+					
+					return true;
+				}
+				
+				GuildeInstance gi = main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
+				gi.setOwner(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId()));
+				gi.sendMessage(main.getConfigManager().NEW_OWNER_BROADCAST.replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()));
+			}
+			
 			if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
 				if(player.isOp()) {
 					main.loadConfig();
-					player.sendMessage("&eFichier config.yml recharger avec succès");
+					player.sendMessage("§eFichier config.yml recharger avec succès");
 					
 					main.loadData();
-					player.sendMessage("&eFichier data.yml recharger avec succès");
+					player.sendMessage("§eFichier data.yml recharger avec succès");
 				} else player.sendMessage(main.getConfigManager().PERMISSION);
 				
 				return true;
@@ -272,6 +338,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
                 tab.add("list");
                 tab.add("desc");
                 tab.add("rename");
+                tab.add("setowner");
                 if(sender.isOp()) tab.add("reload");
 
                 return tab;
@@ -284,12 +351,23 @@ public class Guilde implements CommandExecutor, TabCompleter {
 	
 	private void showHelpMessage(Player player) {
 		//TODO: rendre le message plus beau
+		player.sendMessage("§6================ GUILDE ================");
+		player.sendMessage("");
+		player.sendMessage("§6/guilde help - §eAffiche le message d'aide");
+		player.sendMessage("");
 		player.sendMessage("§6/guilde create §e<Nom de la Guilde> §6- §eCréer votre guilde");
+		player.sendMessage("");
 		player.sendMessage("§6/guilde invite §e<Nom du Joueur> §6- §eInviter un joueur");
-		player.sendMessage("§6/guilde join §e<Nom de la Guilde> §6- §eRejoind une guilde");
+		player.sendMessage("");
+		player.sendMessage("§6/guilde leave - §eQuitter votre guilde");
+		player.sendMessage("");
 		player.sendMessage("§6/guilde list §6- §eAffiche la liste des guildes existante");
+		player.sendMessage("");
 		player.sendMessage("§6/guilde desc §e<Description> §6- §eEditer la description de la guilde");
+		player.sendMessage("");
 		player.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChanger le nom de la guilde");
+		player.sendMessage("");
+		player.sendMessage("§6/guilde setowner §e<Nom du Joueur> §6- §eChanger le propriétaire de la guilde");
 	}
 
 }

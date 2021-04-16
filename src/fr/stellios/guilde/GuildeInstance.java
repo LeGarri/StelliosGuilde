@@ -15,16 +15,19 @@ public class GuildeInstance {
 	
 	private String desc;
 	
+	private OfflinePlayer owner;
+	
 	private List<OfflinePlayer> players;
 	
 	private Material icon;
 	
-	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon) {
+	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon, OfflinePlayer owner) {
 		this.main = main;
 		this.guildeName = guildeName;
 		this.desc = desc;
 		this.players = players;
 		this.icon = icon;
+		this.owner = owner;
 	}
 	
 	
@@ -32,11 +35,13 @@ public class GuildeInstance {
 	
 	public String getGuildeName() { return this.guildeName; }
 	
-	public String getDesc() { return this.desc; }
+	public String getDesc() { return this.desc.replaceAll("&", "§"); }
 	
 	public List<OfflinePlayer> getPlayers() { return this.players; }
 	
 	public Material getIcon() { return this.icon; }
+	
+	public OfflinePlayer getOwner() { return this.owner; }
 	
 	
 	
@@ -44,7 +49,7 @@ public class GuildeInstance {
 	
 	
 	public void saveGuilde() {
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "$*!*") + ".desc", desc);
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".desc", desc);
 		
 		List<String> playersUUID = new ArrayList<String>();
 		
@@ -52,9 +57,11 @@ public class GuildeInstance {
 			playersUUID.add(op.getUniqueId().toString());
 		}
 		
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "$*!*") + ".players", playersUUID);
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".players", playersUUID);
 		
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "$*!*") + ".icon", icon.toString());
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".icon", icon.toString());
+		
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".owner", owner.getUniqueId());
 		
 		main.saveData();
 	}
@@ -66,9 +73,9 @@ public class GuildeInstance {
 	}
 	
 	public void setGuildeName(String name) {
-		this.guildeName = name;
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149"), null);
 		
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "$*!*"), null);
+		this.guildeName = name;
 		
 		saveGuilde();
 	}
@@ -83,11 +90,21 @@ public class GuildeInstance {
 		players.remove(player);
 		
 		if(players.isEmpty()) {
-			main.getData().set("guildes." + guildeName.replaceAll(" ", "$*!*"), null);
+			main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149"), null);
 			main.saveData();
 			
 			return;
 		}
+		
+		if(owner.equals(player)) {
+			owner = players.get(0);
+		}
+		
+		saveGuilde();
+	}
+	
+	public void setOwner(OfflinePlayer owner) {
+		this.owner = owner;
 		
 		saveGuilde();
 	}
