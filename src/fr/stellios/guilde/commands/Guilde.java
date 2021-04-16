@@ -123,10 +123,11 @@ public class Guilde implements CommandExecutor, TabCompleter {
 					public void run() {
 						if(invites.containsKey(invited)) {
 							invites.remove(invited);
-							invited.sendMessage("invite expired");
 						}
 					}
 				}.runTaskLater(main, 1200);
+				
+				return true;
 			}
 			
 			if(args.length >= 2 && args[0].equalsIgnoreCase("join")) {
@@ -149,9 +150,9 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				
 				main.getDataManager().getGuildeByName(guildeName).addPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
 				
-				main.getDataManager().getGuildeByName(guildeName).sendMessage(main.getConfigManager().JOIN_GUILDE_BROADCAST.replaceAll("%player%", player.getName()), Arrays.asList(player));
+				main.getDataManager().getGuildeByName(guildeName).sendMessage(main.getConfigManager().JOIN_GUILDE_BROADCAST.replaceAll("%player%", player.getName()).replaceAll("%guilde%", guildeName), Arrays.asList(player));
 				
-				player.sendMessage(main.getConfigManager().JOIN_GUILDE);
+				player.sendMessage(main.getConfigManager().JOIN_GUILDE.replaceAll("%guilde%", guildeName));
 				
 				return true;
 			}

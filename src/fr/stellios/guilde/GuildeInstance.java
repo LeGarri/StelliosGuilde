@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 
 public class GuildeInstance {
@@ -24,7 +26,13 @@ public class GuildeInstance {
 	
 	private Location home;
 	
-	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon, OfflinePlayer owner, Location home) {
+	private double account;
+	
+	private int level;
+	
+	private int exp;
+	
+	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon, OfflinePlayer owner, Location home, double account, int level, int exp) {
 		this.main = main;
 		this.guildeName = guildeName;
 		this.desc = desc;
@@ -32,6 +40,9 @@ public class GuildeInstance {
 		this.icon = icon;
 		this.owner = owner;
 		this.home = home;
+		this.account = account;
+		this.level = level;
+		this.exp = exp;
 	}
 	
 	
@@ -48,6 +59,12 @@ public class GuildeInstance {
 	public OfflinePlayer getOwner() { return this.owner; }
 	
 	public Location getHome() { return this.home; }
+	
+	public double getAccount() { return this.account; }
+	
+	public int getLevel() { return this.level; }
+	
+	public int getExp() { return this.exp; }
 	
 	
 	
@@ -70,6 +87,12 @@ public class GuildeInstance {
 		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".owner", owner.getUniqueId().toString());
 		
 		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".home", home);
+		
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".account", account);
+		
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".level", level);
+		
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".exp", exp);
 		
 		main.saveData();
 	}
@@ -102,6 +125,42 @@ public class GuildeInstance {
 	
 	public void setHome(Location home) {
 		this.home = home;
+		
+		saveGuilde();
+	}
+	
+	public void addMoney(double money) {
+		account += money;
+		
+		saveGuilde();
+	}
+	
+	public void removeMoney(double money) {
+		this.account -= money;
+		
+		saveGuilde();
+	}
+	
+	private void addlevel() {
+		if((level == 1 && exp >= 100) || (level == 2 && exp >= 200)) {
+			level++;
+			
+			sendMessage(main.getConfigManager().LEVEL_UP_BROADCAST.replaceAll("%level%", String.valueOf(level)));
+			
+			for(OfflinePlayer op : players) if(op.isOnline()) op.getPlayer().playSound(op.getPlayer().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1, 100);
+			
+			addlevel();
+			
+			return;
+		}
+		
+		saveGuilde();
+	}
+	
+	public void addExp(int exp) {
+		this.exp += exp;
+		
+		addlevel();
 		
 		saveGuilde();
 	}

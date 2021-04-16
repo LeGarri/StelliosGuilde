@@ -49,9 +49,21 @@ public class DataManager {
 		return main.getData().getObject(getGuilde(guildeName) + ".home", Location.class);
 	}
 	
+	public double getGuildeAccount(String guildeName) {
+		return main.getData().getDouble(getGuilde(guildeName) + ".account");
+	}
+	
+	public int getGuildeLevel(String guildeName) {
+		return main.getData().getInt(getGuilde(guildeName) + ".level");
+	}
+	
+	public int getGuildeExp(String guildeName) {
+		return main.getData().getInt(getGuilde(guildeName) + ".exp");
+	}
+	
 	
 	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
-		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player, player.getPlayer().getLocation());
+		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player, player.getPlayer().getLocation(), 0, 1, 0);
 	}
 	
 	public List<GuildeInstance> getAllGuilde(){
@@ -63,7 +75,10 @@ public class DataManager {
 					getGuildePlayers(s),
 					getGuildeIcon(s),
 					getGuildeOwner(s),
-					getGuildeHome(s)));
+					getGuildeHome(s),
+					getGuildeAccount(s),
+					getGuildeLevel(s),
+					getGuildeExp(s)));
 		}
 		
 		return guildes;
@@ -79,7 +94,10 @@ public class DataManager {
 						getGuildePlayers(s),
 						getGuildeIcon(s),
 						getGuildeOwner(s),
-						getGuildeHome(s));
+						getGuildeHome(s),
+						getGuildeAccount(s),
+						getGuildeLevel(s),
+						getGuildeExp(s));
 			}
 		}
 		
@@ -90,13 +108,16 @@ public class DataManager {
 		if(main.getData().getConfigurationSection("guildes") == null || main.getData().getConfigurationSection("guildes").getKeys(false).isEmpty()) return null;
 		
 		for(String s : main.getData().getConfigurationSection("guildes").getKeys(false)) {
-			if(s.replaceAll(" ", "bbb149").equalsIgnoreCase(name)) {
+			if(s.replaceAll("bbb149", " ").equalsIgnoreCase(name)) {
 				return new GuildeInstance(main, s.replaceAll("bbb149", " "),
 						getGuildeDesc(s),
 						getGuildePlayers(s),
 						getGuildeIcon(s),
 						getGuildeOwner(s),
-						getGuildeHome(s));
+						getGuildeHome(s),
+						getGuildeAccount(s),
+						getGuildeLevel(s),
+						getGuildeExp(s));
 			}
 		}
 		

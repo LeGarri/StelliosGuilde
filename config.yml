@@ -45,5 +45,11 @@ message:
   new-owner-broadcast: "&6%player% &eest le nouveau propriétaire de la guilde"
   owner-already-owner: "&cVous êtes déjà le propriétaire de cette guilde"
   player-not-in-guilde: "&6%player% &cne fait pas partie de votre guilde"
-  home-changed: "Le home de la guilde vient d'être redéfinie"
+  home-changed: "&eLe home de la guilde vient d'être redéfinie"
+  invalide-deposit: "&cMontant incorrect"
+  not-enough-money: "&cVous ne possédez pas cette somme"
+  valide-deposit-broadcast: "&6%player% &ea déposé &6%money%$ &esur le compte de la guilde"
+  guilde-enough-money: "&cLa guilde ne possède pas cette somme"
+  valide-withdraw-broadcast: "&6%player% &ea retiré &6%money%$ &edu compte de la guilde"
+  level-up-broadcast: "&eLa guilde est passé au niveau &6%level%"
   

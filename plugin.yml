@@ -1,3 +1,5 @@
+depend: [Vault, ProtocolLib, PlaceholderAPI]
+
 name: Guilde
 main: fr.stellios.guilde.Main
 authors: [LeGarri, StreeTixX]

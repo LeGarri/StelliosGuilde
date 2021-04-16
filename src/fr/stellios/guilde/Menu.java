@@ -80,6 +80,8 @@ public class Menu {
 						totalCountWord++;
 					}
 					lore.add(" ");
+					lore.add("§eNiveau de la guilde: §6" + gi.getLevel());
+					lore.add(" ");
 					lore.add("§eMembres:");
 					for(OfflinePlayer op : gi.getPlayers()) {
 						lore.add("§7- §e" + op.getName());
@@ -122,8 +124,8 @@ public class Menu {
 		inv.setItem(45, Items.getBlueGlass());
 		inv.setItem(46, Items.getBlueGlass());
 		inv.setItem(47, Items.getHomeGuilde());
-		inv.setItem(48, Items.getLightBlueGlass());
-		inv.setItem(49, Items.getLightBlueGlass());
+		inv.setItem(48, Items.getAccountGuilde());
+		inv.setItem(49, Items.getGuildeLevelIcon(gi));
 		inv.setItem(50, Items.getLightBlueGlass());
 		inv.setItem(51, Items.getLightBlueGlass());
 		inv.setItem(52, Items.getBlueGlass());
@@ -148,6 +150,8 @@ public class Menu {
 			if(gi.getOwner().equals(op)) headMeta.setLore(Arrays.asList("", "§cPropriétaire", ""));
 			head.setItemMeta(headMeta);
 			inv.setItem(count, head);
+			
+			count++;
 		}
 		
 		return inv;
@@ -187,4 +191,109 @@ public class Menu {
 		return inv;
 	}
 	
+	public static Inventory getGuildeAccount(GuildeInstance gi) {
+		Inventory inv = Bukkit.createInventory(null, 3*9, "§6Compte de la Guilde");
+		
+		inv.setItem(0, Items.getBlueGlass());
+		inv.setItem(1, Items.getBlueGlass());
+		inv.setItem(2, Items.getLightBlueGlass());
+		inv.setItem(3, Items.getLightBlueGlass());
+		inv.setItem(4, Items.getLightBlueGlass());
+		inv.setItem(5, Items.getLightBlueGlass());
+		inv.setItem(6, Items.getLightBlueGlass());
+		inv.setItem(7, Items.getBlueGlass());
+		inv.setItem(8, Items.getBlueGlass());
+		inv.setItem(9, Items.getBlueGlass());
+		inv.setItem(10, Items.getLightBlueGlass());
+		inv.setItem(11, Items.getGuildeDeposit());
+		inv.setItem(12, Items.getLightBlueGlass());
+		inv.setItem(13, Items.getGuildeMoney(gi.getAccount()));
+		inv.setItem(14, Items.getLightBlueGlass());
+		inv.setItem(15, Items.getGuildeWithdraw());
+		inv.setItem(16, Items.getLightBlueGlass());
+		inv.setItem(17, Items.getBlueGlass());
+		inv.setItem(18, Items.getBlueGlass());
+		inv.setItem(19, Items.getBlueGlass());
+		inv.setItem(20, Items.getLightBlueGlass());
+		inv.setItem(21, Items.getLightBlueGlass());
+		inv.setItem(22, Items.getLightBlueGlass());
+		inv.setItem(23, Items.getLightBlueGlass());
+		inv.setItem(24, Items.getLightBlueGlass());
+		inv.setItem(25, Items.getBlueGlass());
+		inv.setItem(26, Items.getBlueGlass());
+		
+		return inv;
+	}
+	
+	public static Inventory getGuildeLevel(GuildeInstance gi) {
+		Inventory inv = Bukkit.createInventory(null, 6*9, "§6Niveau de la Guilde");
+		
+		inv.setItem(0, Items.getBlueGlass());
+		inv.setItem(1, Items.getBlueGlass());
+		inv.setItem(2, Items.getLightBlueGlass());
+		inv.setItem(3, Items.getLightBlueGlass());
+		inv.setItem(4, Items.getLightBlueGlass());
+		inv.setItem(5, Items.getLightBlueGlass());
+		inv.setItem(6, Items.getLightBlueGlass());
+		inv.setItem(7, Items.getBlueGlass());
+		inv.setItem(8, Items.getBlueGlass());
+		inv.setItem(9, Items.getBlueGlass());
+		inv.setItem(17, Items.getBlueGlass());
+		inv.setItem(18, Items.getLightBlueGlass());
+		inv.setItem(26, Items.getLightBlueGlass());
+		inv.setItem(27, Items.getLightBlueGlass());
+		inv.setItem(35, Items.getLightBlueGlass());
+		inv.setItem(36, Items.getBlueGlass());
+		inv.setItem(44, Items.getBlueGlass());
+		inv.setItem(45, Items.getBlueGlass());
+		inv.setItem(46, Items.getBlueGlass());
+		inv.setItem(47, Items.getHomeGuilde());
+		inv.setItem(48, Items.getAccountGuilde());
+		inv.setItem(49, Items.getLightBlueGlass());
+		inv.setItem(50, Items.getLightBlueGlass());
+		inv.setItem(51, Items.getLightBlueGlass());
+		inv.setItem(52, Items.getBlueGlass());
+		inv.setItem(53, Items.getBlueGlass());
+		
+		inv.setItem(10, Items.getGuildeLevel(1, true, Arrays.asList("")));
+		
+		if(gi.getLevel() >= 2) inv.setItem(11, Items.getGuildeLevel(2, true, Arrays.asList("", "§eAvantages:", "§7- §eExpérience gagnée §6x1.1", "§7- §eSoin recu + 5%", "")));
+		else inv.setItem(11, Items.getGuildeLevel(2, false, Arrays.asList("", "§eXP: §6" + gi.getExp() + " / 100", "", "§eAvantages:", "§7- §eExpérience gagnée §6x1.1", "§7- §eSoin recu + 5%", "")));
+		
+		return inv;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

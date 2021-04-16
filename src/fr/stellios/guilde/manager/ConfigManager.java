@@ -37,6 +37,13 @@ public class ConfigManager {
 	public final String OWNER_ALREADY_OWNER;
 	public final String PLAYER_NOT_IN_GUILDE;
 	public final String HOME_CHANGED;
+	public final String INVALIDE_DEPOSIT;
+	public final String NOT_ENOUGH_MONEY;
+	public final String VALIDE_DEPOSIT_BROADCAST;
+	public final String GUILDE_ENOUGH_MONEY;
+	public final String VALIDE_WITHDRAW_BROADCAST;
+	public final String LEVEL_UP_BROADCAST;
+	
 	
 	
 	public ConfigManager(Main main) {
@@ -72,6 +79,12 @@ public class ConfigManager {
         this.OWNER_ALREADY_OWNER = PREFIX + this.main.getConfig().getString("message.owner-already-owner").replaceAll("&", "§");
         this.PLAYER_NOT_IN_GUILDE = PREFIX + this.main.getConfig().getString("message.player-not-in-guilde").replaceAll("&", "§");
         this.HOME_CHANGED = PREFIX + this.main.getConfig().getString("message.home-changed").replaceAll("&", "§");
+        this.INVALIDE_DEPOSIT = PREFIX + this.main.getConfig().getString("message.invalide-deposit").replaceAll("&", "§");
+        this.NOT_ENOUGH_MONEY = PREFIX + this.main.getConfig().getString("message.not-enough-money").replaceAll("&", "§");
+        this.VALIDE_DEPOSIT_BROADCAST = PREFIX + this.main.getConfig().getString("message.valide-deposit-broadcast").replaceAll("&", "§");
+        this.GUILDE_ENOUGH_MONEY = PREFIX + this.main.getConfig().getString("message.guilde-enough-money").replaceAll("&", "§");
+        this.VALIDE_WITHDRAW_BROADCAST = PREFIX + this.main.getConfig().getString("message.valide-withdraw-broadcast").replaceAll("&", "§");
+        this.LEVEL_UP_BROADCAST = PREFIX + this.main.getConfig().getString("message.level-up-broadcast").replaceAll("&", "§");
 	}
 	
 }

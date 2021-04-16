@@ -66,10 +66,42 @@ public class MenuListener implements Listener {
 				player.closeInventory();
 				player.teleport(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getHome());
 			}
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getAccountGuilde().getItemMeta().getDisplayName())) {
+				player.closeInventory();
+				player.openInventory(Menu.getGuildeAccount(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+			}
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeLevelIcon(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))).getItemMeta().getDisplayName())) {
+				player.closeInventory();
+				player.openInventory(Menu.getGuildeLevel(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+			}
 		}
 		
 		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Icone de la Guilde")) {
 			if(e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName() && e.getCurrentItem().getItemMeta().getDisplayName().equals(" ")) e.setCancelled(true);
+		}
+		
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Compte de la Guilde")) {
+			e.setCancelled(true);
+			
+			Player player = (Player) e.getWhoClicked();
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeDeposit().getItemMeta().getDisplayName())) {
+				player.closeInventory();
+				main.addMoneyFromSign(player);
+			}
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeWithdraw().getItemMeta().getDisplayName())) {
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
+					
+					return;
+				}
+				
+				player.closeInventory();
+				main.getMoneyFromSign(player);
+			}
 		}
 	}
 	
@@ -95,6 +127,7 @@ public class MenuListener implements Listener {
 			}.runTaskLater(main, 5L);
 		}
 	}
+	
 	
 }
 
