@@ -3,6 +3,7 @@ package fr.stellios.guilde;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -21,13 +22,16 @@ public class GuildeInstance {
 	
 	private Material icon;
 	
-	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon, OfflinePlayer owner) {
+	private Location home;
+	
+	public GuildeInstance(Main main, String guildeName, String desc, List<OfflinePlayer> players, Material icon, OfflinePlayer owner, Location home) {
 		this.main = main;
 		this.guildeName = guildeName;
 		this.desc = desc;
 		this.players = players;
 		this.icon = icon;
 		this.owner = owner;
+		this.home = home;
 	}
 	
 	
@@ -42,6 +46,8 @@ public class GuildeInstance {
 	public Material getIcon() { return this.icon; }
 	
 	public OfflinePlayer getOwner() { return this.owner; }
+	
+	public Location getHome() { return this.home; }
 	
 	
 	
@@ -61,7 +67,9 @@ public class GuildeInstance {
 		
 		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".icon", icon.toString());
 		
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".owner", owner.getUniqueId());
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".owner", owner.getUniqueId().toString());
+		
+		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".home", home);
 		
 		main.saveData();
 	}
@@ -82,6 +90,18 @@ public class GuildeInstance {
 	
 	public void setDesc(String desc) {
 		this.desc = desc;
+		
+		saveGuilde();
+	}
+	
+	public void setIcon(Material mat) {
+		this.icon = mat;
+		
+		saveGuilde();
+	}
+	
+	public void setHome(Location home) {
+		this.home = home;
 		
 		saveGuilde();
 	}

@@ -121,7 +121,7 @@ public class Menu {
 		inv.setItem(44, Items.getBlueGlass());
 		inv.setItem(45, Items.getBlueGlass());
 		inv.setItem(46, Items.getBlueGlass());
-		inv.setItem(47, Items.getLightBlueGlass());
+		inv.setItem(47, Items.getHomeGuilde());
 		inv.setItem(48, Items.getLightBlueGlass());
 		inv.setItem(49, Items.getLightBlueGlass());
 		inv.setItem(50, Items.getLightBlueGlass());
@@ -153,7 +153,7 @@ public class Menu {
 		return inv;
 	}
 	
-	public static Inventory getGuildeIcon() {
+	public static Inventory getGuildeIcon(GuildeInstance gi) {
 		Inventory inv = Bukkit.createInventory(null, 3*9, "§6Icone de la Guilde");
 		
 		inv.setItem(0, Items.getBlueGlass());
@@ -163,16 +163,17 @@ public class Menu {
 		inv.setItem(4, Items.getLightBlueGlass());
 		inv.setItem(5, Items.getLightBlueGlass());
 		inv.setItem(6, Items.getLightBlueGlass());
-		inv.setItem(7, Items.getLightBlueGlass());
+		inv.setItem(7, Items.getBlueGlass());
 		inv.setItem(8, Items.getBlueGlass());
 		inv.setItem(9, Items.getBlueGlass());
-		inv.setItem(10, Items.getBlueGlass());
+		inv.setItem(10, Items.getLightBlueGlass());
 		inv.setItem(11, Items.getLightBlueGlass());
 		inv.setItem(12, Items.getLightBlueGlass());
-		inv.setItem(13, Items.getLightBlueGlass());
+		inv.setItem(13, new ItemStack(gi.getIcon()));
+		inv.setItem(14, Items.getLightBlueGlass());
 		inv.setItem(15, Items.getLightBlueGlass());
 		inv.setItem(16, Items.getLightBlueGlass());
-		inv.setItem(17, Items.getLightBlueGlass());
+		inv.setItem(17, Items.getBlueGlass());
 		inv.setItem(18, Items.getBlueGlass());
 		inv.setItem(19, Items.getBlueGlass());
 		inv.setItem(20, Items.getLightBlueGlass());

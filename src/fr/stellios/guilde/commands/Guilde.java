@@ -299,6 +299,8 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				GuildeInstance gi = main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
 				gi.setOwner(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId()));
 				gi.sendMessage(main.getConfigManager().NEW_OWNER_BROADCAST.replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()));
+				
+				return true;
 			}
 			
 			if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
@@ -309,6 +311,38 @@ public class Guilde implements CommandExecutor, TabCompleter {
 					main.loadData();
 					player.sendMessage("§eFichier data.yml recharger avec succès");
 				} else player.sendMessage(main.getConfigManager().PERMISSION);
+				
+				return true;
+			}
+			
+			if(args.length == 1 && args[0].equalsIgnoreCase("sethome")) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
+					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+					player.sendMessage(main.getConfigManager().NOT_OWNER);
+					
+					return true;
+				}
+				
+				GuildeInstance gi = main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
+				gi.setHome(player.getLocation());
+				gi.sendMessage(main.getConfigManager().HOME_CHANGED);
+				
+				return true;
+			}
+			
+			if(args.length == 1 && args[0].equalsIgnoreCase("home")) {
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
+					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
+					
+					return true;
+				}
+				
+				player.teleport(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getHome());
 				
 				return true;
 			}
@@ -339,6 +373,8 @@ public class Guilde implements CommandExecutor, TabCompleter {
                 tab.add("desc");
                 tab.add("rename");
                 tab.add("setowner");
+                tab.add("sethome");
+                tab.add("home");
                 if(sender.isOp()) tab.add("reload");
 
                 return tab;
@@ -368,6 +404,10 @@ public class Guilde implements CommandExecutor, TabCompleter {
 		player.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChanger le nom de la guilde");
 		player.sendMessage("");
 		player.sendMessage("§6/guilde setowner §e<Nom du Joueur> §6- §eChanger le propriétaire de la guilde");
+		player.sendMessage("");
+		player.sendMessage("§6/guilde sethome - §eDéfinie le home de la guilde");
+		player.sendMessage("");
+		player.sendMessage("§6/guilde home - §eVous téléporte au home de votre guilde");
 	}
 
 }

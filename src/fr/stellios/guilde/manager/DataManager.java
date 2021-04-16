@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
@@ -44,9 +45,13 @@ public class DataManager {
 		return Bukkit.getOfflinePlayer(UUID.fromString(main.getData().getString(getGuilde(guildeName) + ".owner")));
 	}
 	
+	public Location getGuildeHome(String guildeName) {
+		return main.getData().getObject(getGuilde(guildeName) + ".home", Location.class);
+	}
+	
 	
 	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
-		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player);
+		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player, player.getPlayer().getLocation());
 	}
 	
 	public List<GuildeInstance> getAllGuilde(){
@@ -57,7 +62,8 @@ public class DataManager {
 					getGuildeDesc(s),
 					getGuildePlayers(s),
 					getGuildeIcon(s),
-					getGuildeOwner(s)));
+					getGuildeOwner(s),
+					getGuildeHome(s)));
 		}
 		
 		return guildes;
@@ -72,7 +78,8 @@ public class DataManager {
 						getGuildeDesc(s),
 						getGuildePlayers(s),
 						getGuildeIcon(s),
-						getGuildeOwner(s));
+						getGuildeOwner(s),
+						getGuildeHome(s));
 			}
 		}
 		
@@ -88,7 +95,8 @@ public class DataManager {
 						getGuildeDesc(s),
 						getGuildePlayers(s),
 						getGuildeIcon(s),
-						getGuildeOwner(s));
+						getGuildeOwner(s),
+						getGuildeHome(s));
 			}
 		}
 		

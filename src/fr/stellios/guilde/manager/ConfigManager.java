@@ -36,6 +36,7 @@ public class ConfigManager {
 	public final String NEW_OWNER_BROADCAST;
 	public final String OWNER_ALREADY_OWNER;
 	public final String PLAYER_NOT_IN_GUILDE;
+	public final String HOME_CHANGED;
 	
 	
 	public ConfigManager(Main main) {
@@ -64,12 +65,13 @@ public class ConfigManager {
         this.GUILDE_LEAVE_BROADCAST = PREFIX + this.main.getConfig().getString("message.guilde-leave-broadcast").replaceAll("&", "§");
         this.GUILDE_RENAME = PREFIX + this.main.getConfig().getString("message.guilde-rename").replaceAll("&", "§");
         this.GUILDE_RENAME_BROADCAST = PREFIX + this.main.getConfig().getString("message.guilde-rename-broadcast").replaceAll("&", "§");
-        this.DESC_CHANGED =  PREFIX + this.main.getConfig().getString("message.desc-changed").replaceAll("&", "§");
-        this.DESC_CHANGED_BROADCAST =  PREFIX + this.main.getConfig().getString("message.desc-changed-broadcast").replaceAll("&", "§");
-        this.NOT_OWNER =  PREFIX + this.main.getConfig().getString("message.not-owner").replaceAll("&", "§");   
-        this.NEW_OWNER_BROADCAST =  PREFIX + this.main.getConfig().getString("message.new-owner-broadcast").replaceAll("&", "§");
-        this.OWNER_ALREADY_OWNER =  PREFIX + this.main.getConfig().getString("message.owner-already-owner").replaceAll("&", "§");
-        this.PLAYER_NOT_IN_GUILDE =  PREFIX + this.main.getConfig().getString("message.player-not-in-guilde").replaceAll("&", "§");
+        this.DESC_CHANGED = PREFIX + this.main.getConfig().getString("message.desc-changed").replaceAll("&", "§");
+        this.DESC_CHANGED_BROADCAST = PREFIX + this.main.getConfig().getString("message.desc-changed-broadcast").replaceAll("&", "§");
+        this.NOT_OWNER = PREFIX + this.main.getConfig().getString("message.not-owner").replaceAll("&", "§");   
+        this.NEW_OWNER_BROADCAST = PREFIX + this.main.getConfig().getString("message.new-owner-broadcast").replaceAll("&", "§");
+        this.OWNER_ALREADY_OWNER = PREFIX + this.main.getConfig().getString("message.owner-already-owner").replaceAll("&", "§");
+        this.PLAYER_NOT_IN_GUILDE = PREFIX + this.main.getConfig().getString("message.player-not-in-guilde").replaceAll("&", "§");
+        this.HOME_CHANGED = PREFIX + this.main.getConfig().getString("message.home-changed").replaceAll("&", "§");
 	}
 	
 }

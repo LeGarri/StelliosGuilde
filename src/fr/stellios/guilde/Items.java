@@ -49,4 +49,13 @@ public class Items {
 		return item;
 	}
 	
+	public static ItemStack getHomeGuilde() {
+		ItemStack item = new ItemStack(Material.GRASS_BLOCK);
+		ItemMeta itemMeta = item.getItemMeta();
+		itemMeta.setDisplayName("§eSe téléporter au home de la guilde");
+		item.setItemMeta(itemMeta);
+		
+		return item;
+	}
+	
 }
