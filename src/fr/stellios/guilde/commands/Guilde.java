@@ -48,7 +48,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
-			if(args.length == 1 && args[0].equalsIgnoreCase("help")) { // /guilde ou /guilde help
+			if(args.length == 1 && args[0].equalsIgnoreCase("help")) {
 				showHelpMessage(player);
 				
 				return true;
@@ -300,6 +300,9 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				GuildeInstance gi = main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
 				gi.setOwner(Bukkit.getOfflinePlayer(Bukkit.getPlayer(args[1]).getUniqueId()));
 				gi.sendMessage(main.getConfigManager().NEW_OWNER_BROADCAST.replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()));
+				
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission unset lands.ownlands.2");
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + Bukkit.getPlayer(args[1]).getName() + " permission set lands.ownlands.2");
 				
 				return true;
 			}

@@ -63,6 +63,8 @@ public class DataManager {
 	
 	
 	public GuildeInstance createGuilde(String guildeName, OfflinePlayer player) {
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set lands.ownlands.2");
+		
 		return new GuildeInstance(main, guildeName, "&eUne incroyable guilde", Arrays.asList(Bukkit.getOfflinePlayer(player.getUniqueId())), Material.DIRT, player, player.getPlayer().getLocation(), 0, 1, 0);
 	}
 	

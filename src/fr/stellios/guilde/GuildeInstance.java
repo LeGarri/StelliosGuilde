@@ -3,6 +3,7 @@ package fr.stellios.guilde;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -172,11 +173,17 @@ public class GuildeInstance {
 			main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149"), null);
 			main.saveData();
 			
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission unset lands.ownlands.2");
+			
 			return;
 		}
 		
 		if(owner.equals(player)) {
 			owner = players.get(0);
+			
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission unset lands.ownlands.2");
+			
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + players.get(0).getName() + " permission set lands.ownlands.2");
 		}
 		
 		saveGuilde();
