@@ -142,7 +142,7 @@ public class GuildeInstance {
 	}
 	
 	private void addlevel() {
-		if((level == 1 && exp >= 100) || (level == 2 && exp >= 200)) {
+		if((level == 1 && exp >= 10000) || (level == 2 && exp >= 25000)) {
 			level++;
 			
 			sendMessage(main.getConfigManager().LEVEL_UP_BROADCAST.replaceAll("%level%", String.valueOf(level)));

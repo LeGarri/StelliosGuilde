@@ -1,4 +1,4 @@
-depend: [Vault, ProtocolLib, PlaceholderAPI]
+depend: [Vault, ProtocolLib, PlaceholderAPI, MythicMobs]
 
 name: Guilde
 main: fr.stellios.guilde.Main
@@ -10,3 +10,8 @@ commands:
   guilde:
     description: permet d'utiliser la commande /guilde
     aliases: [gl]
+    
+permissions:
+ guilde.use:
+    description: use guilde command
+    default: op

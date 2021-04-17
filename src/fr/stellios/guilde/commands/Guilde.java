@@ -33,7 +33,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("guilde") && sender instanceof Player) {
+		if(cmd.getName().equalsIgnoreCase("guilde") && sender instanceof Player && sender.hasPermission("guilde.use")) {
 			Player player = (Player) sender;
 			
 			if(args.length == 0) {

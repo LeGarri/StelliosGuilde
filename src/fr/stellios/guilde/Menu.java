@@ -54,7 +54,7 @@ public class Menu {
 					else if(count == 26) count = 28;
 					else if(count == 35) count = 37;
 					
-					GuildeInstance gi = main.getDataManager().getGuildeByName(s);
+					GuildeInstance gi = main.getDataManager().getGuildeByName(s.replaceAll("bbb149", " "));
 					
 					ItemStack item = new ItemStack(gi.getIcon());
 					ItemMeta itemMeta = item.getItemMeta();
@@ -102,7 +102,7 @@ public class Menu {
 	}
 	
 	public static Inventory getGuildeMenu(GuildeInstance gi) {
-		Inventory inv = Bukkit.createInventory(null, 6*9, "§6Menu Guilde");
+		Inventory inv = Bukkit.createInventory(null, 6*9, "§6Menu de la Guilde");
 		
 		inv.setItem(0, Items.getBlueGlass());
 		inv.setItem(1, Items.getBlueGlass());
@@ -258,7 +258,7 @@ public class Menu {
 		inv.setItem(10, Items.getGuildeLevel(1, true, Arrays.asList("")));
 		
 		if(gi.getLevel() >= 2) inv.setItem(11, Items.getGuildeLevel(2, true, Arrays.asList("", "§eAvantages:", "§7- §eExpérience gagnée §6x1.1", "§7- §eSoin recu + 5%", "")));
-		else inv.setItem(11, Items.getGuildeLevel(2, false, Arrays.asList("", "§eXP: §6" + gi.getExp() + " / 100", "", "§eAvantages:", "§7- §eExpérience gagnée §6x1.1", "§7- §eSoin recu + 5%", "")));
+		else inv.setItem(11, Items.getGuildeLevel(2, false, Arrays.asList("", "§eXP: §6" + gi.getExp() + " / 10 000", "", "§eAvantages:", "§7- §eExpérience gagnée §6x1.1", "§7- §eSoin recu + 5%", "")));
 		
 		return inv;
 	}

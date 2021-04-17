@@ -46,7 +46,7 @@ public class MenuListener implements Listener {
 			}
 		}
 		
-		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Menu Guilde")) {
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Menu de la Guilde")) {
 			e.setCancelled(true);
 			
 			Player player = (Player) e.getWhoClicked();
