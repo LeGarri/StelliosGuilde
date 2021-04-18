@@ -158,12 +158,25 @@ public class GuildeInstance {
 		saveGuilde();
 	}
 	
+	public int getExpToLevelUp() {
+		if(level == 1) return 10000;
+		else if(level == 2) return 25000;
+		else return 0;
+	}
+	
 	public void addExp(int exp) {
 		this.exp += exp;
 		
 		addlevel();
 		
 		saveGuilde();
+	}
+	
+	public String getAdvantage() {
+		if(level == 1) return "§eAucun avantage";
+		if(level == 2) return "§7- §eExpérience gagnée §6x1.1,§7- §eSoin recu + 5%";
+		
+		return "";
 	}
 	
 	public void removePlayer(OfflinePlayer player) {
