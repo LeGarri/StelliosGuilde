@@ -1,10 +1,16 @@
 package fr.stellios.guilde.manager;
 
+import java.util.HashMap;
+
 import fr.stellios.guilde.Main;
+import io.lumine.xikage.mythicmobs.MythicMobs;	
 
 public class ConfigManager {
 
 	private Main main;
+	
+	
+	private HashMap<String, Integer> mobs = new HashMap<String, Integer>();
 	
 
 	public final String PREFIX;
@@ -43,6 +49,7 @@ public class ConfigManager {
 	public final String GUILDE_ENOUGH_MONEY;
 	public final String VALIDE_WITHDRAW_BROADCAST;
 	public final String LEVEL_UP_BROADCAST;
+	public final String BOOST_CHOICE_BROADCAST;
 	
 	
 	
@@ -85,6 +92,15 @@ public class ConfigManager {
         this.GUILDE_ENOUGH_MONEY = PREFIX + this.main.getConfig().getString("message.guilde-enough-money").replaceAll("&", "§");
         this.VALIDE_WITHDRAW_BROADCAST = PREFIX + this.main.getConfig().getString("message.valide-withdraw-broadcast").replaceAll("&", "§");
         this.LEVEL_UP_BROADCAST = PREFIX + this.main.getConfig().getString("message.level-up-broadcast").replaceAll("&", "§");
+        this.BOOST_CHOICE_BROADCAST = PREFIX + this.main.getConfig().getString("message.boost-choice-broadcast").replaceAll("&", "§");
+        
+        for(String s : this.main.getConfig().getConfigurationSection("mobs").getKeys(false)) {
+        	mobs.put(MythicMobs.inst().getMobManager().getMythicMob(s).getDisplayName().toString(), this.main.getConfig().getInt("mobs." + s));
+        }
+	}
+	
+	public HashMap<String, Integer> getMobs(){
+		return this.mobs;
 	}
 	
 }

@@ -44,13 +44,13 @@ public class GuildeExpansion extends PlaceholderExpansion {
 	@Override
 	public String onRequest(OfflinePlayer player, @Nonnull String identifier) {
 		if(identifier.equals("name")) {
-			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("Pas de Guilde");
+			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("§ePas de Guilde");
 			
 			return String.valueOf(main.getDataManager().getGuildeByPlayer(player).getGuildeName());
 		}
 		
 		if(identifier.equals("level")) {
-			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("Pas de Guilde");
+			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("§ePas de Guilde");
 			
 			return String.valueOf(main.getDataManager().getGuildeByPlayer(player).getLevel());
 		}
@@ -76,7 +76,7 @@ public class GuildeExpansion extends PlaceholderExpansion {
 		}
 		
 		if(identifier.equals("online")) {
-			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("Pas de Guilde");
+			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("§ePas de Guilde");
 			
 			int connected = 0;
 			
@@ -86,7 +86,7 @@ public class GuildeExpansion extends PlaceholderExpansion {
 		}
 		
 		if(identifier.equals("benefits")) {
-			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("Pas de Guilde");
+			if(main.getDataManager().getGuildeByPlayer(player) == null) return String.valueOf("§ePas de Guilde");
 			
 			return String.valueOf(main.getDataManager().getGuildeByPlayer(player).getAdvantage());
 		}

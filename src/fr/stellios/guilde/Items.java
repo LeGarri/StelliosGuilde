@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 
 public class Items {
 
@@ -120,6 +123,52 @@ public class Items {
 		
 		itemMeta.setLore(lore);
 		
+		item.setItemMeta(itemMeta);
+		
+		return item;
+	}
+	
+	public static ItemStack getGuildeBoost(GuildeInstance gi) {
+		ItemStack item = new ItemStack(Material.HONEY_BOTTLE);
+		ItemMeta itemMeta = item.getItemMeta();
+		itemMeta.setDisplayName("§6Choisir le boost");
+		List<String> lore = Arrays.asList("", "§eChoisissez un boost de guilde pour", "§ela semaine. Le choix ne peut être","§efait qu'une seule fois par semaine", "");
+		if(gi.getLevel() < 5) lore.addAll(Arrays.asList("§cNiveau de guilde 5 requis"));
+		itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		itemMeta.setLore(lore);
+		item.setItemMeta(itemMeta);
+		
+		return item;
+	}
+	
+	public static ItemStack getGuildeActiveBoost(GuildeInstance gi) {
+		ItemStack item = new ItemStack(Material.HONEY_BOTTLE);
+		ItemMeta itemMeta = item.getItemMeta();
+		if(gi.getBoost() == PotionEffectType.SPEED) itemMeta.setDisplayName("§eBoost: §6Vitesse");
+		else if(gi.getBoost() == PotionEffectType.INCREASE_DAMAGE) itemMeta.setDisplayName("§eBoost: §6Force");
+		else if(gi.getBoost() == PotionEffectType.DAMAGE_RESISTANCE) itemMeta.setDisplayName("§eBoost: §6Résistance");
+		else if(gi.getBoost() == PotionEffectType.REGENERATION) itemMeta.setDisplayName("§eBoost: §6Régénération");
+		else if(gi.getBoost() == PotionEffectType.FAST_DIGGING) itemMeta.setDisplayName("§eBoost: §6Haste");
+		else if(gi.getBoost() == PotionEffectType.WATER_BREATHING) itemMeta.setDisplayName("§eBoost: §6Apnée");
+		itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(itemMeta);
+		
+		return item;
+	}
+	
+	public static ItemStack getGuildeChoiceBoost(PotionEffectType pet) {
+		ItemStack item = new ItemStack(Material.HONEY_BOTTLE);
+		ItemMeta itemMeta = item.getItemMeta();
+		if(pet == PotionEffectType.SPEED) itemMeta.setDisplayName("§eBoost: §6Vitesse");
+		else if(pet == PotionEffectType.INCREASE_DAMAGE) itemMeta.setDisplayName("§eBoost: §6Force");
+		else if(pet == PotionEffectType.DAMAGE_RESISTANCE) itemMeta.setDisplayName("§eBoost: §6Résistance");
+		else if(pet == PotionEffectType.REGENERATION) itemMeta.setDisplayName("§eBoost: §6Régénération");
+		else if(pet == PotionEffectType.FAST_DIGGING) itemMeta.setDisplayName("§eBoost: §6Haste");
+		else if(pet == PotionEffectType.WATER_BREATHING) itemMeta.setDisplayName("§eBoost: §6Apnée");
+		itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		item.setItemMeta(itemMeta);
 		
 		return item;

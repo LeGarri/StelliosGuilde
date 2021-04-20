@@ -1,11 +1,13 @@
 package fr.stellios.guilde.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.stellios.guilde.GuildeInstance;
@@ -76,6 +78,11 @@ public class MenuListener implements Listener {
 				player.closeInventory();
 				player.openInventory(Menu.getGuildeLevel(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
 			}
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))).getItemMeta().getDisplayName())) {
+				player.closeInventory();
+				player.openInventory(Menu.getGuildeAccount(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+			}
 		}
 		
 		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Icone de la Guilde")) {
@@ -101,6 +108,42 @@ public class MenuListener implements Listener {
 				
 				player.closeInventory();
 				main.getMoneyFromSign(player);
+			}
+		}
+		
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Boost de la Guilde")) {
+			e.setCancelled(true);
+		}
+		
+		if(e.getCurrentItem() != null && e.getView().getTitle().equals("§6Choisir le boost de la Guilde")) {
+			e.setCancelled(true);
+			
+			Player player = (Player) e.getWhoClicked();
+			
+			if(e.getSlot() == 12 || e.getSlot() == 13 || e.getSlot() == 14 && e.getCurrentItem().getType() == Material.HONEY_BOTTLE) {
+				if(e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
+					String petName = " ";
+					
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Vitesse")) petName = PotionEffectType.SPEED.getName();
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Force")) petName = PotionEffectType.INCREASE_DAMAGE.getName();
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Résistance")) petName = PotionEffectType.DAMAGE_RESISTANCE.getName();
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Régénération")) petName = PotionEffectType.REGENERATION.getName();
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Haste")) petName = PotionEffectType.FAST_DIGGING.getName();
+					if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§eBoost: §6Apnée")) petName = PotionEffectType.WATER_BREATHING.getName();
+					
+					if(!petName.equals(" ")) {
+						GuildeInstance gi = main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
+						
+						if(gi.getOwner() == player) {
+							gi.setBoost(PotionEffectType.getByName(petName));
+							
+							player.closeInventory();
+							player.openInventory(Menu.getGuildeBoost(gi));
+							
+							gi.sendMessage(main.getConfigManager().BOOST_CHOICE_BROADCAST.replaceAll("%player%", player.getName()));
+						}else player.sendMessage(main.getConfigManager().NOT_OWNER);
+					}
+				}
 			}
 		}
 	}

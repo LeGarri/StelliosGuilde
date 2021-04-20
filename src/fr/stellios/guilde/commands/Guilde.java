@@ -309,10 +309,10 @@ public class Guilde implements CommandExecutor, TabCompleter {
 			
 			if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
 				if(player.isOp()) {
-					main.loadConfig();
+					main.reloadConfig();
 					player.sendMessage("§eFichier config.yml recharger avec succès");
 					
-					main.loadData();
+					main.reloadData();
 					player.sendMessage("§eFichier data.yml recharger avec succès");
 				} else player.sendMessage(main.getConfigManager().PERMISSION);
 				
@@ -394,23 +394,14 @@ public class Guilde implements CommandExecutor, TabCompleter {
 		player.sendMessage("§6================ GUILDE ================");
 		player.sendMessage("");
 		player.sendMessage("§6/guilde help - §eAffiche le message d'aide");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde create §e<Nom de la Guilde> §6- §eCréer votre guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde invite §e<Nom du Joueur> §6- §eInviter un joueur");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde leave - §eQuitter votre guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde list §6- §eAffiche la liste des guildes existante");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde desc §e<Description> §6- §eEditer la description de la guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde rename §e<Nouveau nom de la Guilde> §6- §eChanger le nom de la guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde setowner §e<Nom du Joueur> §6- §eChanger le propriétaire de la guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde sethome - §eDéfinie le home de la guilde");
-		player.sendMessage("");
 		player.sendMessage("§6/guilde home - §eVous téléporte au home de votre guilde");
 	}
 
