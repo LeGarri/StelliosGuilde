@@ -100,7 +100,7 @@ public class GuildeInstance {
 				if(random == 5) boosts[i] = PotionEffectType.WATER_BREATHING;
 				
 				i++;
-			} while(boosts[0] == boosts[1] || boosts[1] == boosts[2] || boosts[0] == boosts[2] || boosts[0] == PotionEffectType.ABSORPTION || boosts[1] == PotionEffectType.ABSORPTION || boosts[2] == PotionEffectType.ABSORPTION);
+			} while(boosts[0] == boosts[1] || boosts[1] == boosts[2] || boosts[0] == boosts[2] || boosts[0] == null || boosts[1] == null || boosts[2] == null);
 			
 			for(int j = 0; j < 3; j++) {
 				this.boostList.add(boosts[j]);
@@ -140,7 +140,8 @@ public class GuildeInstance {
 		
 		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".exp", exp);
 		
-		main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".boost", boost);
+		if(boost != null) main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".boost", boost.getName());
+		else main.getData().set("guildes." + guildeName.replaceAll(" ", "bbb149") + ".boost", null);
 		
 		List<String> boosts = new ArrayList<String>();
 		for(PotionEffectType pet : boostList) boosts.add(pet.getName());
@@ -216,7 +217,7 @@ public class GuildeInstance {
 		else if(level == 2) return 25000;
 		else if(level == 3) return 50000;
 		else if(level == 4) return 90000;
-		else return 0;
+		else return 99000000;
 	}
 	
 	public void addExp(int exp) {

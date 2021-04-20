@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.comphenix.protocol.PacketType;
@@ -131,12 +132,13 @@ public class Main extends JavaPlugin {
 									
 									if(player.getActivePotionEffects().isEmpty()) {
 										for(PotionEffect effect : player.getActivePotionEffects()) {
-											if(effect.getType() == gi.getBoost()) haveEffect = true;
+											if(effect.getType().equals(gi.getBoost())) haveEffect = true;
 										}
 									}
 									
 									if(!haveEffect) {
-										player.addPotionEffect(new PotionEffect(gi.getBoost(), 9999, 0));
+										if(gi.getBoost().equals(PotionEffectType.FAST_DIGGING)) player.addPotionEffect(new PotionEffect(gi.getBoost(), 9999, 1));
+										else player.addPotionEffect(new PotionEffect(gi.getBoost(), 9999, 0));
 									}
 								}
 							}

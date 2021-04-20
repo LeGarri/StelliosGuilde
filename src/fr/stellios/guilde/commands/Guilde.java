@@ -319,6 +319,28 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			
+			if(args.length == 3 && args[0].equalsIgnoreCase("addexp")) {
+				if(player.isOp()) {
+					int exp = Integer.valueOf(args[2]);
+					
+					if(Bukkit.getPlayer(args[1]) != null) {
+						Player target = Bukkit.getPlayer(args[1]);
+						
+						if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())) == null) {
+							target.sendMessage(main.getConfigManager().EXP_RECEIVED_NO_GUILDE.replaceAll("%exp%", String.valueOf(exp)));
+							
+							return true;
+						}
+						
+						main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())).addExp(exp);
+						
+						target.sendMessage(main.getConfigManager().EXP_RECEIVED.replaceAll("%exp%", String.valueOf(exp)));
+						
+						return true;
+					}
+				}
+			}
+			
 			if(args.length == 1 && args[0].equalsIgnoreCase("sethome")) {
 				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())) == null) {
 					player.sendMessage(main.getConfigManager().DONT_HAVE_GUILDE);
@@ -380,6 +402,7 @@ public class Guilde implements CommandExecutor, TabCompleter {
                 tab.add("sethome");
                 tab.add("home");
                 if(sender.isOp()) tab.add("reload");
+                if(sender.isOp()) tab.add("addexp");
 
                 return tab;
             }

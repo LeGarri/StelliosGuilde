@@ -323,7 +323,7 @@ public class Menu {
 	public static Inventory getGuildeBoost(GuildeInstance gi) {
 		Inventory inv;
 		
-		if(gi.getBoost() == null) inv = Bukkit.createInventory(null, 3*9, "§6Boost de la Guilde");
+		if(gi.getBoost() != null) inv = Bukkit.createInventory(null, 3*9, "§6Boost de la Guilde");
 		else inv = Bukkit.createInventory(null, 3*9, "§6Choisir le boost de la Guilde");
 		
 		inv.setItem(0, Items.getBlueGlass());

@@ -50,6 +50,8 @@ public class ConfigManager {
 	public final String VALIDE_WITHDRAW_BROADCAST;
 	public final String LEVEL_UP_BROADCAST;
 	public final String BOOST_CHOICE_BROADCAST;
+	public final String EXP_RECEIVED_NO_GUILDE;
+	public final String EXP_RECEIVED;
 	
 	
 	
@@ -93,6 +95,8 @@ public class ConfigManager {
         this.VALIDE_WITHDRAW_BROADCAST = PREFIX + this.main.getConfig().getString("message.valide-withdraw-broadcast").replaceAll("&", "§");
         this.LEVEL_UP_BROADCAST = PREFIX + this.main.getConfig().getString("message.level-up-broadcast").replaceAll("&", "§");
         this.BOOST_CHOICE_BROADCAST = PREFIX + this.main.getConfig().getString("message.boost-choice-broadcast").replaceAll("&", "§");
+        this.EXP_RECEIVED_NO_GUILDE = PREFIX + this.main.getConfig().getString("message.exp-received-no-guilde").replaceAll("&", "§");
+        this.EXP_RECEIVED = PREFIX + this.main.getConfig().getString("message.exp-received").replaceAll("&", "§");
         
         for(String s : this.main.getConfig().getConfigurationSection("mobs").getKeys(false)) {
         	mobs.put(MythicMobs.inst().getMobManager().getMythicMob(s).getDisplayName().toString(), this.main.getConfig().getInt("mobs." + s));

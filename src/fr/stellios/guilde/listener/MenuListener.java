@@ -81,7 +81,7 @@ public class MenuListener implements Listener {
 			
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))).getItemMeta().getDisplayName())) {
 				player.closeInventory();
-				player.openInventory(Menu.getGuildeAccount(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+				player.openInventory(Menu.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
 			}
 		}
 		

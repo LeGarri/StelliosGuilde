@@ -53,6 +53,8 @@ message:
   valide-withdraw-broadcast: "&6%player% &ea retiré &6%money%$ &edu compte de la guilde"
   level-up-broadcast: "&eLa guilde est passé au niveau &6%level%"
   boost-choice-broadcast: "&6%player% §ea choisi le boost de la guilde"
+  exp-received-no-guilde: "&eVous avez reçu %exp% xp de guilde mais vous &cn'avez pas de guilde"
+  exp-received: "&eVous avez reçu %exp% xp de guilde"
   
 mobs:
   Mob1Dj1: 1
