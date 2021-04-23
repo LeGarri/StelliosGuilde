@@ -80,8 +80,16 @@ public class MenuListener implements Listener {
 			}
 			
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equals(Items.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))).getItemMeta().getDisplayName())) {
-				player.closeInventory();
-				player.openInventory(Menu.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+				if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getLevel() >= 5) {
+					if(!main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId())).getOwner().equals(Bukkit.getOfflinePlayer(player.getUniqueId()))) {
+						player.sendMessage(main.getConfigManager().NOT_OWNER);
+						
+						return;
+					}
+					
+					player.closeInventory();
+					player.openInventory(Menu.getGuildeBoost(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()))));
+				}
 			}
 		}
 		

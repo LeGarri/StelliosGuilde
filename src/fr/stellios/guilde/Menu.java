@@ -86,53 +86,55 @@ public class Menu {
 					lore.add(" ");
 					lore.add("§eMembres:");
 					for(OfflinePlayer op : gi.getPlayers()) {
-						String[] prefix = ChatColor.stripColor(Main.getChat().getPlayerPrefix(op.getPlayer())).split(" ");
-						
-						String prefixes = "";
-						
-						for(int j = 0; j < prefix.length; j++) {
-							if(prefix[j].contains("&#")) {
-								if(prefix[j].contains("Dieu") || prefix[j].contains("Demi-Dieu") || prefix[j].contains("Hero")) {
-									String color = prefix[j].substring(1, 8);
-									String rank = prefix[j].substring(8, prefix[j].length());
-									
-									ChatColor cc = ChatColor.of(color);
-									
-									String rankWithColor = cc + rank;
-									
-									prefixes += rankWithColor + " ";
+						if(op.isOnline()) {
+							String[] prefix = ChatColor.stripColor(Main.getChat().getPlayerPrefix(op.getPlayer())).split(" ");
+							
+							String prefixes = "";
+							
+							for(int j = 0; j < prefix.length; j++) {
+								if(prefix[j].contains("&#")) {
+									if(prefix[j].contains("Dieu") || prefix[j].contains("Demi-Dieu") || prefix[j].contains("Hero")) {
+										String color = prefix[j].substring(1, 8);
+										String rank = prefix[j].substring(8, prefix[j].length());
+										
+										ChatColor cc = ChatColor.of(color);
+										
+										String rankWithColor = cc + rank;
+										
+										prefixes += rankWithColor + " ";
+									} else {
+										String start = prefix[j].substring(0, 1);
+										String color = prefix[j].substring(2, 9);
+										String rank = prefix[j].substring(9, prefix[j].length() - 1);
+										String end = prefix[j].substring(prefix[j].length() - 1);
+										
+										ChatColor cc = ChatColor.of(color);
+										
+										String rankWithColor = "§7" + start + cc + rank + "§7" + end;
+										
+										prefixes += rankWithColor + " ";
+									}
 								} else {
 									String start = prefix[j].substring(0, 1);
-									String color = prefix[j].substring(2, 9);
-									String rank = prefix[j].substring(9, prefix[j].length() - 1);
+									String rank = prefix[j].substring(1, prefix[j].length() - 1);
 									String end = prefix[j].substring(prefix[j].length() - 1);
 									
-									ChatColor cc = ChatColor.of(color);
+									String rankColor = "";
+									if(rank.equalsIgnoreCase("Admin")) rankColor = "§c";
+									else if(rank.equalsIgnoreCase("Développeur")) rankColor = "§c";
+									else if(rank.equalsIgnoreCase("Modo")) rankColor = "§a";
+									else if(rank.equalsIgnoreCase("Builder")) rankColor = "§e";
+									else if(rank.equalsIgnoreCase("Domestique")) rankColor = "§7";
+									else if(rank.equalsIgnoreCase("Esclave")) rankColor = "§8";
 									
-									String rankWithColor = "§7" + start + cc + rank + "§7" + end;
+									String rankWithColor = "§7" + start + rankColor + rank + "§7" + end;
 									
 									prefixes += rankWithColor + " ";
 								}
-							} else {
-								String start = prefix[j].substring(0, 1);
-								String rank = prefix[j].substring(1, prefix[j].length() - 1);
-								String end = prefix[j].substring(prefix[j].length() - 1);
-								
-								String rankColor = "";
-								if(rank.equalsIgnoreCase("Admin")) rankColor = "§c";
-								else if(rank.equalsIgnoreCase("Développeur")) rankColor = "§c";
-								else if(rank.equalsIgnoreCase("Modo")) rankColor = "§a";
-								else if(rank.equalsIgnoreCase("Builder")) rankColor = "§e";
-								else if(rank.equalsIgnoreCase("Domestique")) rankColor = "§7";
-								else if(rank.equalsIgnoreCase("Esclave")) rankColor = "§8";
-								
-								String rankWithColor = "§7" + start + rankColor + rank + "§7" + end;
-								
-								prefixes += rankWithColor + " ";
 							}
-						}
-						
-						lore.add("§7- " + prefixes + "§f" + op.getName());
+							
+							lore.add("§7- " + prefixes + "§f" + op.getName());
+						} else lore.add("§7- " + "§f" + op.getName());
 					}
 					itemMeta.setLore(lore);
 					item.setItemMeta(itemMeta);

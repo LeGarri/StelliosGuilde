@@ -1,5 +1,6 @@
 package fr.stellios.guilde;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -132,8 +133,9 @@ public class Items {
 		ItemStack item = new ItemStack(Material.HONEY_BOTTLE);
 		ItemMeta itemMeta = item.getItemMeta();
 		itemMeta.setDisplayName("§6Choisir le boost");
-		List<String> lore = Arrays.asList("", "§eChoisissez un boost de guilde pour", "§ela semaine. Le choix ne peut être","§efait qu'une seule fois par semaine", "");
-		if(gi.getLevel() < 5) lore.addAll(Arrays.asList("§cNiveau de guilde 5 requis"));
+		List<String> lore = new ArrayList<String>();
+		lore.addAll(Arrays.asList("", "§eChoisissez un boost de guilde pour", "§ela semaine. Le choix ne peut être","§efait qu'une seule fois par semaine", ""));
+		if(gi.getLevel() < 5) lore.addAll(Arrays.asList("§cNiveau de guilde 5 requis", ""));
 		itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		itemMeta.setLore(lore);

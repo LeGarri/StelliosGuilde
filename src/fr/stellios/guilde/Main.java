@@ -116,13 +116,14 @@ public class Main extends JavaPlugin {
 									if(is.hasItemMeta() && is.getItemMeta().getAttributeModifiers(Attribute.GENERIC_MAX_HEALTH) != null) {
 										for(AttributeModifier am : is.getItemMeta().getAttributeModifiers(Attribute.GENERIC_MAX_HEALTH)) {
 											Double amValue = Double.parseDouble(new DecimalFormat("#.##").format(am.getAmount()));
-											maxHealth += amValue * 10;
+											double prct = ((amValue * 10) * maxHealth) / 10;
+											maxHealth += prct;
 										}
 									}
 								}
 							}
 							
-							if(player.getMaxHealth() < (maxHealth + plusMaxHealth)) {
+							if(player.getMaxHealth() < (maxHealth + plusMaxHealth) || player.getMaxHealth() > (maxHealth + plusMaxHealth)) {
 								player.setMaxHealth(20 + plusMaxHealth);
 							}
 							
