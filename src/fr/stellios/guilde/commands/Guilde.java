@@ -33,6 +33,30 @@ public class Guilde implements CommandExecutor, TabCompleter {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
+		if(cmd.getName().equalsIgnoreCase("guilde") && sender.hasPermission("guilde.use")) {
+			if(args.length == 3 && args[0].equalsIgnoreCase("addexp")) {
+				if(sender.isOp()) {
+					int exp = Integer.valueOf(args[2]);
+					
+					if(Bukkit.getPlayer(args[1]) != null) {
+						Player target = Bukkit.getPlayer(args[1]);
+						
+						if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())) == null) {
+							target.sendMessage(main.getConfigManager().EXP_RECEIVED_NO_GUILDE.replaceAll("%exp%", String.valueOf(exp)));
+							
+							return true;
+						}
+						
+						main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())).addExp(exp);
+						
+						target.sendMessage(main.getConfigManager().EXP_RECEIVED.replaceAll("%exp%", String.valueOf(exp)));
+						
+						return true;
+					}
+				}
+			}
+		}
+		
 		if(cmd.getName().equalsIgnoreCase("guilde") && sender instanceof Player && sender.hasPermission("guilde.use")) {
 			Player player = (Player) sender;
 			
@@ -317,28 +341,6 @@ public class Guilde implements CommandExecutor, TabCompleter {
 				} else player.sendMessage(main.getConfigManager().PERMISSION);
 				
 				return true;
-			}
-			
-			if(args.length == 3 && args[0].equalsIgnoreCase("addexp")) {
-				if(player.isOp()) {
-					int exp = Integer.valueOf(args[2]);
-					
-					if(Bukkit.getPlayer(args[1]) != null) {
-						Player target = Bukkit.getPlayer(args[1]);
-						
-						if(main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())) == null) {
-							target.sendMessage(main.getConfigManager().EXP_RECEIVED_NO_GUILDE.replaceAll("%exp%", String.valueOf(exp)));
-							
-							return true;
-						}
-						
-						main.getDataManager().getGuildeByPlayer(Bukkit.getOfflinePlayer(target.getUniqueId())).addExp(exp);
-						
-						target.sendMessage(main.getConfigManager().EXP_RECEIVED.replaceAll("%exp%", String.valueOf(exp)));
-						
-						return true;
-					}
-				}
 			}
 			
 			if(args.length == 1 && args[0].equalsIgnoreCase("sethome")) {
