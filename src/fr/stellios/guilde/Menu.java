@@ -102,6 +102,8 @@ public class Menu {
 										String rankWithColor = cc + rank;
 										
 										prefixes += rankWithColor + " ";
+									} else if(prefix[i].contains("Roi")) {
+										prefixes += ChatColor.of("#FFF700") + "[Roi] ";
 									} else {
 										String start = prefix[j].substring(0, 1);
 										String color = prefix[j].substring(2, 9);
