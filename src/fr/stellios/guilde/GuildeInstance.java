@@ -89,7 +89,7 @@ public class GuildeInstance {
 			int i = 0;
 			
 			do {
-				int random = 0 + (int)(Math.random() * ((5 - 0) + 1));
+				int random = 0 + (int)(Math.random() * ((6 - 0) + 1));
 				if(i == 3) i = 0;
 				
 				if(random == 0) boosts[i] = PotionEffectType.SPEED;
@@ -98,6 +98,7 @@ public class GuildeInstance {
 				if(random == 3) boosts[i] = PotionEffectType.REGENERATION;
 				if(random == 4) boosts[i] = PotionEffectType.FAST_DIGGING;
 				if(random == 5) boosts[i] = PotionEffectType.WATER_BREATHING;
+				if(random == 6) boosts[i] = PotionEffectType.HERO_OF_THE_VILLAGE;
 				
 				i++;
 			} while(boosts[0] == boosts[1] || boosts[1] == boosts[2] || boosts[0] == boosts[2] || boosts[0] == null || boosts[1] == null || boosts[2] == null);
